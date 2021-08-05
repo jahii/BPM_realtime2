@@ -6,20 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Real-Time app with Django Channels</title>
+    <title>Real-time BPM, interval, raw data</title>
+    <style type ="text/css">
+        div#left_box{
+        width:400px;
+        height:400px;
+        float:left;
+        margin:30px;
+        background-color:yellow;
+        }
+        #right_box{
+        width:400px;
+        height:400px;
+        float:right;
+        margin:30px;
+        background-color:yellow;
+        }
+        #side_left{
+        width:500px;
+        height:900px;
+        float:left;
+        background-color:blue;
+        margin:10px;
+        }
+        #side_right{
+        width:500px;
+        height:900px;
+        float:right;
+        background-color:green;
+        margin:10px;
+        }
+
+
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col- mx-auto mt-5">
-
-                <p>raw data : <span id = "ap">{{ text }}</span></p>
-                <p>interval : <span id = "app">{{ text }}</span></p>
-                <p>BPM : <span id = "appp">{{ text }}</span></p>
+    <div id="side_left">
+        <div id = "left_box">
+            <center>
+            <h2>SLEEPING STATUS</h2>
+            </center>
+        </div>
+        <div id = "left_box">
+            <div class="container">
+                    <div class="col- mx-auto mt-5">
+                        <p>raw data : <span id = "ap">{{ text }}</span></p>
+                        <p>interval : <span id = "app">{{ text }}</span></p>
+                        <p>BPM : <span id = "appp">{{ text }}</span></p>
+                    </div>
             </div>
         </div>
     </div>
+    <div id ="side_right">
+        <div id = "right_box">
+            <center>
+                <h2 style="color:red">ALERT!</h2>
+            </center>
+        </div>
+        <div id="right_box">
+            <center>
+                <h2>Guidance of resting area</h2>
+            </center>
+
+        </div>
+    </div>
     <script>
+
         var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
         socket.onmessage = function(event){
             var data = JSON.parse(event.data);
@@ -27,9 +79,7 @@
             document.querySelector('#ap').innerText = data.raw;
             document.querySelector('#app').innerText = data.interval;
             document.querySelector('#appp').innerText = data.BPM;
-            
-            
-            
+
         }
     </script>
 </body>
