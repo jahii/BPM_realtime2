@@ -34,6 +34,7 @@ def Decode(serialLine):
     else : 
         print ("Error_Wrong Signal") 
         return 9999,9999,9999
+#memo
 
 
 def SerialRead():  # return list [Ard1,Ard2]
